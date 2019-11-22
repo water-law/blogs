@@ -1,0 +1,2 @@
+# blogs
+store blog files
