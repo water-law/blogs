@@ -1,19 +1,11 @@
+# 文件查看类
+
 ### cat
+
+查看文件内容
 
 ```bash
 cat -n xxx.txt
-```
-
-### wget
-
-```bash
-wget http://xxx.html
-```
-
-### curl
-
-```bash
-curl -L http://xxx.com
 ```
 
 ### tail
@@ -24,6 +16,34 @@ curl -L http://xxx.com
 tail -f xxx.log
 ```
 
+### grep
+
+过滤文件内容
+
+```bash
+grep "2021-01-01" catalina.out > 01.log
+```
+
+# URL 相关类
+
+### wget
+
+根据 URL 下载文件
+
+```bash
+wget http://xxx.html
+```
+
+### curl
+
+构造 URL 请求
+
+```bash
+curl -L http://xxx.com
+```
+
+# 进程相关类
+
 ### ps
 
 查看进程
@@ -31,14 +51,6 @@ tail -f xxx.log
 ```bash
 ps -ef | grep xxx
 ```
-
-### du
-
-```bash
-du -sh *
-```
-
-查看当前目录下的文件大小
 
 ### netstat
 
@@ -48,19 +60,46 @@ du -sh *
 netstat -lnp | grep 8080
 ```
 
+### top
+
+任务管理器
+
+```
+ctrl + P ctrl + M
+```
+
+按 CPU 和内存排行
+
+升级版工具： **htop**
+
+# 磁盘相关类
+
+### du
+
+```bash
+du -sh *
+```
+
+查看当前目录下的文件大小
+
+# 防火墙类
+
 ### firewall-cmd
 
 ```bash
 firewall-cmd --zone=public --add-port=8080/tcp --permanent
+firewall-cmd --reload
 ```
 
 [CentOS7 启动防火墙](https://blog.csdn.net/qq_29369653/article/details/86577326)
 
-CentOS7 里面是用 firewalld (相关介绍介绍请点击)来管理防火墙的
+CentOS7 里面防火墙是用 firewalld (相关介绍介绍请点击)来管理防火墙的
 
 （--permanent 没有此参数重启后失效）
 
 ### iptables
+
+CentOS6 里面防火墙是用 iptables
 
 查看规则列表
 
@@ -76,18 +115,17 @@ service iptables save
 service iptables restart
 ```
 
-### top
-
-任务管理器
-
-```
-ctrl + P ctrl + M
-```
-
-按CPU和内存排行
+# 服务器时间类
 
 ### ntpdate
+
 ntpdate 时间同步
+
+### date
+
+查看当前时间
+
+# 会话管理类
 
 ### nohup
 
@@ -171,6 +209,8 @@ Screen 操作快捷键
 - ctrl-a 0…9：同样是切换各个 Shell
 - ctrl-a d：退出 Screen 会话
 
+# 系统服务启动类
+
 ### systemctl
 
 [Systemd 入门教程：命令篇](http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html)
@@ -187,10 +227,22 @@ crontab -e
 
 ### docker
 
-```bash
-docker inspect container
-```
+运行容器, 挂载目录 /home/zjp/Projects/novel 到 /home/novel/code
 
 ```bash
-docker exec -it <contain_id> /bin/bash
+docker run -ti --net host -v /etc/localtime:/etc/localtime:ro -v /home/zjp/Projects/novel:/home/novel/code <image_id> /bin/bash
+```
+
+进入容器
+
+~~~bash
+```
+docker exec -it <container_id> /bin/bash
+```
+~~~
+
+查看容器状况
+
+```bash
+docker inspect <contain_id>
 ```
