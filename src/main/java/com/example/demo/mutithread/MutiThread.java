@@ -12,8 +12,8 @@ public class MutiThread {
     public static void main(String[] args) {
 
 
-        ThreadPoolExecutor pool = new ThreadPoolExecutor();
-        pool.submit();
+//        ThreadPoolExecutor pool = new ThreadPoolExecutor();
+//        pool.submit();
     }
 
 
