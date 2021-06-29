@@ -1,12 +1,3 @@
----
-title: Hexo 建站教程
-date: 2019-03-02 23:39:49
-categories:
-  - 建站
-tags:
-  - Hexo
----
-
 ### 安装
 
 参考官方文档 [hexo](https://hexo.io/zh-cn/docs/ )

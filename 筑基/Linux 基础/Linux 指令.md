@@ -230,7 +230,8 @@ crontab -e
 运行容器, 挂载目录 /home/zjp/Projects/novel 到 /home/novel/code
 
 ```bash
-docker run -ti --net host -v /etc/localtime:/etc/localtime:ro -v /home/zjp/Projects/novel:/home/novel/code <image_id> /bin/bash
+docker run -ti --net host -v /etc/localtime:/etc/localtime:ro
+-v /home/zjp/Projects/novel:/home/novel/code <image_id> /bin/bash
 ```
 
 进入容器
