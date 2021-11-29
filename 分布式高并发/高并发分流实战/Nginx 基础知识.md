@@ -1,6 +1,6 @@
 ### 0. 修复 bug
 
-访问 https://waterlaw.cn/articles/1 出现 500 号错误， 目前发现的情况有：
+访问 https://waterlaw.top/articles/1 出现 500 号错误， 目前发现的情况有：
 jieba 中文分词的 cache 每次大约占用 0.8～1.8 秒，怀疑是此原因， 待排查。
 
 nginx.conf 文件修改如下， 则正常, 另外服务器不要使用  django 原生服务器(仅在本地开发中使用)
