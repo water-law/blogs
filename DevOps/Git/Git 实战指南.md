@@ -135,3 +135,34 @@ git push origin cherry-pick/feat/xq-2021-1-259_20211213
 ⑤ 关闭原来的 mr 如果没有冲突，直接 push 即可
 
 2、如果多出来的改动部分在 uat，说明本身 feat 分支存在问题，需要排查
+
+
+
+## 配置文件提交方法
+
+项目中有某个配置文件， 其中某个片段的代码要提交，其他片段的代码不提交，可以这样做。
+
+git update-index --assume-unchanged Makefile 命令会把 Makefile 文件留存在目录下，
+
+但是这会使 Git 假定随后的修改没有被追踪。这样，我可以提交我想要发布的有 CFLAGS I的版本，用 --assume-unchanged 标记
+
+```bash
+$ git update-index --no-assume-unchanged Makefile  # 追踪 Makefile 文件
+
+$ git add -p Makefile  # 选取 Makefile 文件中要添加的部分
+
+# [添加我要发布的Makefile的变更]
+$ git commit 
+
+$ git update-index --assume-unchanged Makefile # 取消追踪 Makefile 文件
+
+$ git push
+```
+
+
+
+## git stash
+
+git stash save "WIP: message" 会将修改暂存在 .git 文件夹下的某个目录下，使用 git stash list 查看所有暂存记录
+
+然后使用 git stash apply stash{n} 应用暂存，可能需要处理冲突。
