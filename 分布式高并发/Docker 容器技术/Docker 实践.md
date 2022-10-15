@@ -7,4 +7,3 @@ Docker 容器下的日志过大
 ```bash
 docker run --log-driver json-file --log-opt max-size=10m alpine echo hello world
 ```
-

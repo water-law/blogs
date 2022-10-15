@@ -60,7 +60,6 @@ server {
 
 Nginx 是一个 HTTP 服务器，可以将服务器上的静态文件（如HTML、图片）通过HTTP协议展现给客户端。
 
-
 ```nginx
 server {  
     listen 80; # 端口号  
@@ -74,7 +73,6 @@ server {
 
 客户端本来可以直接通过 HTTP 协议访问某网站应用服务器，网站管理员可以在中间加上一个 Nginx，客户端请求 Nginx，Nginx 请求应用服务器，然后将结果返回给客户端，此时 Nginx 就是反向代理服务器。
 
-
 ```nginx
 server {  
     listen 80;  
@@ -84,11 +82,9 @@ server {
 } 
 ```
 
-
 ### 3. 负载均衡
 
 当网站访问量非常大，网站站长开心赚钱的同时，也摊上事儿了。因为网站越来越慢，一台服务器已经不够用了。于是将同一个应用部署在多台服务器上，将大量用户的请求分配给多台机器处理。同时带来的好处是，其中一台服务器万一挂了，只要还有其他服务器正常运行，就不会影响用户使用。
-
 
 ```nginx
 upstream myapp {  
@@ -107,7 +103,6 @@ server {
 
 可以通过 ip-hash 的方式，根据客户端ip地址的 hash 值将请求分配给固定的某一个服务器处理。
 
-
 ```nginx
 upstream myapp {  
     ip_hash; # 根据客户端IP地址Hash值将请求分配给固定的一个服务器处理  
@@ -123,7 +118,6 @@ server {
 ```
 
 另外，服务器的硬件配置可能有好有差，想把大部分请求分配给好的服务器，把少量请求分配给差的服务器，可以通过 weight 来控制。
-
 
 ```nginx
 upstream myapp {  
@@ -143,7 +137,6 @@ server {
 有的网站访问量大，需要负载均衡。然而并不是所有网站都如此出色，有的网站，由于访问量太小，需要节省成本，将多个网站部署在同一台服务器上。
 
 例如将 www.aaa.com 和 www.bbb.com 两个网站部署在同一台服务器上，两个域名解析到同一个IP地址，但是用户通过两个域名却可以打开两个完全不同的网站，互相不影响，就像访问两个服务器一样，所以叫两个虚拟主机。
-
 
 ```nginx
 server {  
@@ -171,11 +164,9 @@ server {
 
 虚拟主机的原理是通过 HTTP 请求头中的 Host 是否匹配 server_name 来实现的，有兴趣的同学可以研究一下HTTP协议。
 
-
 ### 5、FastCGI
 
 Nginx 本身不支持PHP等语言，但是它可以通过 FastCGI 来将请求扔给某些语言或框架处理（例如PHP、Python、Perl）。
-
 
 ```nginx
 server {  
@@ -187,7 +178,6 @@ server {
         # 另一种方式：fastcgi_pass unix:/var/run/php5-fpm.sock;  
     }  
 } 
-
 ```
 
 配置中将.php 结尾的请求通过FashCGI交给PHP-FPM处理，PHP-FPM 是 PHP 的一个 FastCGI 管理器。
