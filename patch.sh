@@ -205,7 +205,7 @@ function getWebZip(){
 
 
 main(){
-#  getTargetpathLog
+  getTargetpathLog
   source=.
   target=./tfbsit
   date=` date +%Y%m%d`
