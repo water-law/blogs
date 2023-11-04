@@ -56,7 +56,7 @@ function judgeSpeciel(){
   then
     #TODO
     tem=${full_path/\/src\/main\/java\/com\/hylandtec\/intelliplatform\/webapp/}
-    target_path-${targetDir}/${tem%/*}
+    target_path=${targetDir}/${tem%/*}
     copyFile
     return 1
   fi
