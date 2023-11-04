@@ -1,6 +1,7 @@
 package com.example.demo.mutithread;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -9,11 +10,30 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class MutiThread {
 
-    public static void main(String[] args) {
+    static int a = 0;
+    static CountDownLatch countDownLatch = new CountDownLatch(10*1000000);
+
+    public static void main(String[] args) throws InterruptedException {
+
+        for (int i = 0; i < 10; i++) {
+            MyThread myThread = new MyThread();
+            myThread.start();
+        }
+        countDownLatch.await();
+        System.out.println(a);
+
+    }
 
 
-//        ThreadPoolExecutor pool = new ThreadPoolExecutor();
-//        pool.submit();
+    static class MyThread extends Thread {
+        @Override
+        public void run() {
+            for (int i = 0; i < 1000000; i++) {
+//                a++;
+                ++a;
+                countDownLatch.countDown();
+            }
+        }
     }
 
 
