@@ -25,67 +25,67 @@ mvn clean install -Dmaven.test.skip=true -Dmaven.checkstyle.check.skip=true
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-parent</artifactId>
-		<version>${revision}</version>
-		<relativePath>../spring-boot-project/spring-boot-parent</relativePath>
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>c
+        <artifactId>spring-boot-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../spring-boot-project/spring-boot-parent</relativePath>
+    </parent>
     <groupId>top.waterlaw</groupId>
     <artifactId>spring-boot-starter-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<properties>
-		<main.basedir>${basedir}/..</main.basedir>
-		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
-	</properties>
-	<dependencies>
-		<!-- Compile -->
+    <packaging>war</packaging>
+    <properties>
+        <main.basedir>${basedir}/..</main.basedir>
+        <m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
+    </properties>
+    <dependencies>
+        <!-- Compile -->
         <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-		<!-- Provided -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<!-- Test -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<useSystemClassLoader>false</useSystemClassLoader>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <!-- Provided -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 ```
 
@@ -102,24 +102,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SampleSimpleApplication implements CommandLineRunner {
-	@Autowired
-	Hello hello;
+    @Autowired
+    Hello hello;
 
-	@Override
-	public void run(String... args) throws Exception {
-		System.out.println(this.hello.getMsg());
-		if(args.length > 0 && args[0].equals("exitcode")) {
-			throw new ExitException("exit", new Throwable());
-		}
-	}
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println(this.hello.getMsg());
+        if(args.length > 0 && args[0].equals("exitcode")) {
+            throw new ExitException("exit", new Throwable());
+        }
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(SampleSimpleApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SampleSimpleApplication.class, args);
+    }
 }
 ```
-
-
 
 ### spring-boot 注解
 

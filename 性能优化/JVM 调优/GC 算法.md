@@ -1,15 +1,4 @@
----
-title: JVM
-date: 2019-04-09 22:08:00
-categories:
-  - JVM
-tags:
-  - Java
----
-
-##### GC
-
-<!--more-->
+### GC
 
 垃圾回收基本原理、几种常见的垃圾回收器的特性、重点了解 CMS （或 G1 ）以及一些重要的参数
 
@@ -116,8 +105,6 @@ CMS(Concurrent Mark Sweep)收集器（标记-清理算法): 高并发、低停�
 能说清 jvm 的内存划分
 
 [JVM的内存区域划分](https://www.cnblogs.com/dolphin0520/p/3613043.html)
-
-<!--more-->
 
 #### 常见问题
 

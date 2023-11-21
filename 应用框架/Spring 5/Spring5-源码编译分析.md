@@ -57,15 +57,14 @@ compile project(':spring-context')
 - 先执行 spring-core 的 compileTestJava 任务
 
 - 由于 spring-context 依赖 spring-aop 模块， spring-aop 模块用到了 commons-logging 日志，
-
+  
   ```groovy
   compile group: 'commons-logging', name: 'commons-logging', version: '1.1.1'
   ```
-
+  
   可以将此依赖复制到项目的 build.gradle 下
 
 再次执行新建项目的 build， 这次成功了
-
 
 ```java
 package top.waterlaw.app;
@@ -78,36 +77,32 @@ public class AppConfig {
 }
 ```
 
-
-
 Test 类：
 
 ```java
 public class Test {
-	/**
-	 * 把类扫描出来
-	 * 把 bean 实例化
-	 */
-	public static void main(String[] args) {
-		AnnotationConfigApplicationContext annotationConfigApplicationContext =
-				new AnnotationConfigApplicationContext(AppConfig.class);
+    /**
+     * 把类扫描出来
+     * 把 bean 实例化
+     */
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext annotationConfigApplicationContext =
+                new AnnotationConfigApplicationContext(AppConfig.class);
 
-		/**
-		 *
-		 */
-		RootBeanDefinition beanDefinition = new RootBeanDefinition();
-		beanDefinition.setBeanClassName("xxxx");
-		beanDefinition.setBeanClass(UserDao.class);
-		beanDefinition.setLazyInit();
+        /**
+         *
+         */
+        RootBeanDefinition beanDefinition = new RootBeanDefinition();
+        beanDefinition.setBeanClassName("xxxx");
+        beanDefinition.setBeanClass(UserDao.class);
+        beanDefinition.setLazyInit();
 
-		UserDao userDao = (UserDao) annotationConfigApplicationContext.getBean("userDao");
-		userDao.query();
+        UserDao userDao = (UserDao) annotationConfigApplicationContext.getBean("userDao");
+        userDao.query();
 
-	}
+    }
 }
 ```
-
-
 
 ### 其他博客
 

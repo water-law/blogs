@@ -2,7 +2,6 @@
 
 conf/server.xml
 
-
 ```bash
 <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
@@ -18,7 +17,7 @@ conf/server.xml
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log." suffix=".txt"
-               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+               pattern="%h %l %u %t "%r" %s %b" />
                 <Context docBase="ROOT" path="" reloadable="true"/>
                 <Context docBase="/home/upload/telboxStatics" path="/telboxStatics" reloadable="true"/>
 ```

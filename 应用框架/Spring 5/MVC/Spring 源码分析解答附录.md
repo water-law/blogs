@@ -11,7 +11,9 @@ aop 是面向切面编程，使用切点和增强的概念非侵入式切入代�
 - aop 是什么，有哪些实现方式？
 
 - aop 里面的 cglib 原理是什么？
+
 - aop 切方法的方法的时候，哪些方法是切不了的？为什么？
+
 - 同类调用为什么无法切？怎么样解决（AOPContext）?
 
 # Bean
@@ -39,6 +41,7 @@ IOC 中的 ApplicationContext 是一个实现 BeanFactory 接口的子类。
 - resources
 
 - webapp
+  
   - WEB-INF
     - xxx-servlet.xml
     - web.xml
@@ -114,11 +117,11 @@ Java 日志统一接口
 
 首先看看 Spring MVC 处理异常的 3 中方式,进行比较,最终选用一个比较合适的方式。
 
- 	Spring MVC 提供的简单异常处理器 SimpleMappingExceptionResolver;
-
- 	Spring MVC 异常处理接口 HandlerExceptionResolver 自定义自己的异常处理器;
-
- 	@ExceptionHandler 注解实现异常处理;
+     Spring MVC 提供的简单异常处理器 SimpleMappingExceptionResolver;
+    
+     Spring MVC 异常处理接口 HandlerExceptionResolver 自定义自己的异常处理器;
+    
+     @ExceptionHandler 注解实现异常处理;
 
 ### 国际化
 

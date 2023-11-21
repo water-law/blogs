@@ -34,8 +34,6 @@ Spring MVC 到 Spring Boot, [官方文档 web.html](https://docs.spring.io/sprin
 </web-app>
 ```
 
-
-
 这个配置被 ServletContext 的 java 代码所取代
 
 ```java
@@ -58,20 +56,18 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
 }
 ```
 
-
-
 web.xml 在 tomcat 启动时加载，那么 onStartup 方法如何被 tomcat 加载的呢？
 
 猜测 tomcat 内部方法中有一个 List<WebApplicationInitializer> list
 
 ```java
-	public static void main(String[] args) {
-		ServletContext servletCxt = ..; // tomcat 内部有一个 ServletContext
-		List<WebApplicationInitializer> list = ..; // WebApplicationInitializer 列表
-		for (WebApplicationInitializer init: list) {
-			init.onStartup(servletCxt);
-		}
-	}
+    public static void main(String[] args) {
+        ServletContext servletCxt = ..; // tomcat 内部有一个 ServletContext
+        List<WebApplicationInitializer> list = ..; // WebApplicationInitializer 列表
+        for (WebApplicationInitializer init: list) {
+            init.onStartup(servletCxt);
+        }
+    }
 ```
 
 这是不可能的， WebApplicationInitializer 是 Spring 的接口， tomcat 无法识别， 猜测不成立。
@@ -102,8 +98,6 @@ tomcat 8:    > servlet 3.0
 org.springframework.web.SpringServletContainerInitializer
 ```
 
-
-
 ```java
 package org.springframework.web;
 
@@ -123,40 +117,40 @@ import org.springframework.util.ReflectionUtils;
 
 @HandlesTypes(WebApplicationInitializer.class)
 public class SpringServletContainerInitializer implements ServletContainerInitializer {
-	@Override
-	public void onStartup(@Nullable Set<Class<?>> webAppInitializerClasses, ServletContext servletContext)
-			throws ServletException {
+    @Override
+    public void onStartup(@Nullable Set<Class<?>> webAppInitializerClasses, ServletContext servletContext)
+            throws ServletException {
 
-		List<WebApplicationInitializer> initializers = new LinkedList<>();
+        List<WebApplicationInitializer> initializers = new LinkedList<>();
 
-		if (webAppInitializerClasses != null) {
-			for (Class<?> waiClass : webAppInitializerClasses) {
-				// Be defensive: Some servlet containers provide us with invalid classes,
-				// no matter what @HandlesTypes says...
-				if (!waiClass.isInterface() && !Modifier.isAbstract(waiClass.getModifiers()) &&
-						WebApplicationInitializer.class.isAssignableFrom(waiClass)) {
-					try {
-						initializers.add((WebApplicationInitializer)
-								ReflectionUtils.accessibleConstructor(waiClass).newInstance());
-					}
-					catch (Throwable ex) {
-						throw new ServletException("Failed to instantiate WebApplicationInitializer class", ex);
-					}
-				}
-			}
-		}
+        if (webAppInitializerClasses != null) {
+            for (Class<?> waiClass : webAppInitializerClasses) {
+                // Be defensive: Some servlet containers provide us with invalid classes,
+                // no matter what @HandlesTypes says...
+                if (!waiClass.isInterface() && !Modifier.isAbstract(waiClass.getModifiers()) &&
+                        WebApplicationInitializer.class.isAssignableFrom(waiClass)) {
+                    try {
+                        initializers.add((WebApplicationInitializer)
+                                ReflectionUtils.accessibleConstructor(waiClass).newInstance());
+                    }
+                    catch (Throwable ex) {
+                        throw new ServletException("Failed to instantiate WebApplicationInitializer class", ex);
+                    }
+                }
+            }
+        }
 
-		if (initializers.isEmpty()) {
-			servletContext.log("No Spring WebApplicationInitializer types detected on classpath");
-			return;
-		}
+        if (initializers.isEmpty()) {
+            servletContext.log("No Spring WebApplicationInitializer types detected on classpath");
+            return;
+        }
 
-		servletContext.log(initializers.size() + " Spring WebApplicationInitializers detected on classpath");
-		AnnotationAwareOrderComparator.sort(initializers);
-		for (WebApplicationInitializer initializer : initializers) {
-			initializer.onStartup(servletContext);
-		}
-	}
+        servletContext.log(initializers.size() + " Spring WebApplicationInitializers detected on classpath");
+        AnnotationAwareOrderComparator.sort(initializers);
+        for (WebApplicationInitializer initializer : initializers) {
+            initializer.onStartup(servletContext);
+        }
+    }
 
 }
 ```
@@ -203,18 +197,18 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 
 public class SpringApplication {
-	public static void run() {
-		Tomcat tomcat = new Tomcat();
-		tomcat.setPort(8888);
-		try {
-			// contextPath 不要为 /, 否则无法识别，项目起不来，确保 E:/webapps/ 目录存在
-			tomcat.addWebapp("", "E:/webapps/");
-			tomcat.start();
-			tomcat.getServer().await();
-		} catch (LifecycleException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void run() {
+        Tomcat tomcat = new Tomcat();
+        tomcat.setPort(8888);
+        try {
+            // contextPath 不要为 /, 否则无法识别，项目起不来，确保 E:/webapps/ 目录存在
+            tomcat.addWebapp("", "E:/webapps/");
+            tomcat.start();
+            tomcat.getServer().await();
+        } catch (LifecycleException e) {
+            e.printStackTrace();
+        }
+    }
 }
 ```
 
@@ -224,9 +218,9 @@ Test 测试下
 package top.waterlaw;
 
 public class Test {
-	public static void main(String[] args) {
-		SpringApplication.run();
-	}
+    public static void main(String[] args) {
+        SpringApplication.run();
+    }
 }
 ```
 
@@ -250,10 +244,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 
-	@GetMapping(value = "/index") // 全路径为 /app/index
-	public String index() {
-		return "index";
-	}
+    @GetMapping(value = "/index") // 全路径为 /app/index
+    public String index() {
+        return "index";
+    }
 }
 ```
 
@@ -277,10 +271,10 @@ import java.util.List;
 @ComponentScan("top.waterlaw")
 @EnableWebMvc
 public class AppConfig implements WebMvcConfigurer {
-	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-		converters.add(new GsonHttpMessageConverter());
-	}
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(new GsonHttpMessageConverter());
+    }
 }
 ```
 
@@ -299,13 +293,13 @@ import java.util.Map;
 @Controller
 public class UserController {
 
-	@GetMapping(value = "/app/index")
-	@ResponseBody
-	public Map<String, String> index() {
-		Map map = new HashMap<String, String>();
-		map.put("name", "spring");
-		return map;
-	}
+    @GetMapping(value = "/app/index")
+    @ResponseBody
+    public Map<String, String> index() {
+        Map map = new HashMap<String, String>();
+        map.put("name", "spring");
+        return map;
+    }
 }
 ```
 
@@ -318,4 +312,3 @@ public class UserController {
 "name": "spring"
 }
 ```
-

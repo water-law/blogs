@@ -12,3 +12,4 @@ If you’re looking for information about a specific version, or instructions ab
 - Automatically configure Spring and 3rd party libraries whenever possible
 - Provide production-ready features such as metrics, health checks, and externalized configuration
 - Absolutely no code generation and no requirement for XML configuration
+
