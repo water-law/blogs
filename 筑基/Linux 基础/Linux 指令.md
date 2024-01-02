@@ -16,6 +16,32 @@ cat -n xxx.txt
 tail -f xxx.log
 ```
 
+### df
+
+```bash
+df [选项]... [FILE]...
+```
+
+- 文件-a, --all 包含所有的具有 0 Blocks 的文件系统
+- 文件--block-size={SIZE} 使用 {SIZE} 大小的 Blocks
+- 文件-h, --human-readable 使用人类可读的格式(预设值是不加这个选项的...)
+- 文件-H, --si 很像 -h, 但是用 1000 为单位而不是用 1024
+- 文件-i, --inodes 列出 inode 资讯，不列出已使用 block
+- 文件-k, --kilobytes 就像是 --block-size=1024
+- 文件-l, --local 限制列出的文件结构
+- 文件-m, --megabytes 就像 --block-size=1048576
+- 文件--no-sync 取得资讯前不 sync (预设值)
+- 文件-P, --portability 使用 POSIX 输出格式
+- 文件--sync 在取得资讯前 sync
+- 文件-t, --type=TYPE 限制列出文件系统的 TYPE
+- 文件-T, --print-type 显示文件系统的形式
+- 文件-x, --exclude-type=TYPE 限制列出文件系统不要显示 TYPE
+- 文件-v (忽略)
+- 文件--help 显示这个帮手并且离开
+- 文件--version 输出版本资讯并且离开
+
+df 查看的是已挂载的文件/硬盘
+
 ### grep
 
 过滤文件内容
@@ -23,6 +49,36 @@ tail -f xxx.log
 ```bash
 grep "2021-01-01" catalina.out > 01.log
 ```
+
+### fdisk
+
+```bash
+fdisk [必要参数][选择参数]
+```
+
+**必要参数：**
+
+- -l 列出素所有分区表
+- -u 与"-l"搭配使用，显示分区数目
+
+**选择参数：**
+
+- -s<分区编号> 指定分区
+- -v 版本信息
+
+**菜单操作说明**
+
+- m ：显示菜单和帮助信息
+- a ：活动分区标记/引导分区
+- d ：删除分区
+- l ：显示分区类型
+- n ：新建分区
+- p ：显示分区信息
+- q ：退出不保存
+- t ：设置分区号
+- v ：进行分区检查
+- w ：保存修改
+- x ：扩展应用，高级功能
 
 # URL 相关类
 
@@ -131,13 +187,9 @@ ntpdate 时间同步
 
 **nohup命令及其输出文件**                                                                                             
 
-　　今天在linux上部署wdt程序，在SSH客户端执行./start-dishi.sh,启动成功,在关闭SSH客户端后，运行的程序也
+使用nohup命令可以保证程序能在后台一直执行，不会因为退出会话而终止。
 
-同时终止了，怎样才能保证在推出SSH客户端后程序能一直执行呢？通过网上查找资料，发现需要使用nohup命
-
-令。
-
-完美解决方案：nohup ./start-dishi.sh >output 2>&1 &
+使用方式：nohup ./start-dishi.sh >output 2>&1 &
 
 **现对上面的命令进行下解释**
 
@@ -156,7 +208,7 @@ ntpdate 时间同步
 　　1：标准输出流 stdout
 　　2：标准错误流 stderr
 
-　　一般当我们用 > console.txt，实际是 1>console.txt的省略用法；< console.txt ，实际是 0 < console.txt的省
+一般当我们用 > console.txt，实际是 1>console.txt的省略用法；< console.txt ，实际是 0 < console.txt的省
 
 略用法。
 
@@ -237,9 +289,7 @@ docker run -ti --net host -v /etc/localtime:/etc/localtime:ro
 进入容器
 
 ~~~bash
-```
 docker exec -it <container_id> /bin/bash
-```
 ~~~
 
 查看容器状况

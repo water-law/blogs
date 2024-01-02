@@ -150,3 +150,40 @@ npm i html-webpack-plugin -D
 
 1. devServer 模式下根据模版生成 html 文件，自动引入 打包好的 out.js
 2. 打包时生成 html， 并且引入 out.js
+
+```js
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './src/index.html'
+        })
+    ]
+```
+
+
+
+### Css-loader 和 style-loader
+
+```json
+npm i css-loader style-loader -D
+```
+
+```js
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }
+        ]
+    }
+```
+
+webpack 的 loader 是从右到左链式调用
+
+在入口 js 中引入
+
+```js
+import './css/index.css'
+```
+

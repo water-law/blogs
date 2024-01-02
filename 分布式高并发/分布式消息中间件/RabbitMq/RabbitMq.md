@@ -585,7 +585,8 @@ public class EmitLog {
         while (scanner.hasNext()) {
             String message = scanner.next();
             System.out.println("生产者发出消息：" + message);
-            channel.basicPublish(EXCHANGE_NAME, "a.orange.b", null, message.getBytes(StandardCharsets.UTF_8));
+            channel.basicPublish(EXCHANGE_NAME, "a.orange.b", null, 
+                                 message.getBytes(StandardCharsets.UTF_8));
         }
     }
 }
@@ -942,22 +943,26 @@ public class TtlQueueConfig {
 
     // 绑定 交换机和队列
     @Bean
-    public Binding queueABindingX(@Qualifier("queueA") Queue queueA, @Qualifier("xExchange") DirectExchange xExchange) {
+    public Binding queueABindingX(@Qualifier("queueA") Queue queueA, 
+                                  @Qualifier("xExchange") DirectExchange xExchange) {
         return BindingBuilder.bind(queueA).to(xExchange).with("XA");
     }
 
     @Bean
-    public Binding queueBBindingX(@Qualifier("queueB") Queue queueB, @Qualifier("xExchange") DirectExchange xExchange) {
+    public Binding queueBBindingX(@Qualifier("queueB") Queue queueB, 
+                                  @Qualifier("xExchange") DirectExchange xExchange) {
         return BindingBuilder.bind(queueB).to(xExchange).with("XB");
     }
 
     @Bean
-    public Binding queueCBindingX(@Qualifier("queueC") Queue queueC, @Qualifier("xExchange") DirectExchange xExchange) {
+    public Binding queueCBindingX(@Qualifier("queueC") Queue queueC, 
+                                  @Qualifier("xExchange") DirectExchange xExchange) {
         return BindingBuilder.bind(queueC).to(xExchange).with("XC");
     }
 
     @Bean
-    public Binding queueDBindingX(@Qualifier("queueD") Queue queueD, @Qualifier("yExchange") DirectExchange yExchange) {
+    public Binding queueDBindingX(@Qualifier("queueD") Queue queueD, 
+                                  @Qualifier("yExchange") DirectExchange yExchange) {
         return BindingBuilder.bind(queueD).to(yExchange).with("YD");
     }
 }
@@ -1052,10 +1057,14 @@ http://localhost:8080/ttl/expiredMsg/BB/2000
 查看日志
 
 ```shell
-2022-10-09 00:13:42.754  INFO 61160 --- [nio-8080-exec-3] com.waterlaw.controller.SendMsg          : 当前时间：Sun Oct 09 00:13:42 CST 2022, 发送一条TTL=40000的信息AAA到QC队列
-2022-10-09 00:14:03.244  INFO 61160 --- [nio-8080-exec-7] com.waterlaw.controller.SendMsg          : 当前时间：Sun Oct 09 00:14:03 CST 2022, 发送一条TTL=2000的信息BB到QC队列
-2022-10-09 00:14:22.814  INFO 61160 --- [ntContainer#0-1] c.waterlaw.consumer.DeadLetterComsumer   : 当前时间：Sun Oct 09 00:14:22 CST 2022, 收到一条信息：AAA
-2022-10-09 00:14:22.816  INFO 61160 --- [ntContainer#0-1] c.waterlaw.consumer.DeadLetterComsumer   : 当前时间：Sun Oct 09 00:14:22 CST 2022, 收到一条信息：BB
+2022-10-09 00:13:42.754  INFO 61160 --- [nio-8080-exec-3] com.waterlaw.controller.SendMsg          : 
+当前时间：Sun Oct 09 00:13:42 CST 2022, 发送一条TTL=40000的信息AAA到QC队列
+2022-10-09 00:14:03.244  INFO 61160 --- [nio-8080-exec-7] com.waterlaw.controller.SendMsg          : 
+当前时间：Sun Oct 09 00:14:03 CST 2022, 发送一条TTL=2000的信息BB到QC队列
+2022-10-09 00:14:22.814  INFO 61160 --- [ntContainer#0-1] c.waterlaw.consumer.DeadLetterComsumer   : 
+当前时间：Sun Oct 09 00:14:22 CST 2022, 收到一条信息：AAA
+2022-10-09 00:14:22.816  INFO 61160 --- [ntContainer#0-1] c.waterlaw.consumer.DeadLetterComsumer   : 
+当前时间：Sun Oct 09 00:14:22 CST 2022, 收到一条信息：BB
 ```
 
 
@@ -1229,10 +1238,14 @@ http://localhost:8080/ttl/delayedMsg/BB/2000
 控制台日志
 
 ```shell
-2022-10-14 00:24:00.479  INFO 91060 --- [nio-8080-exec-3] com.waterlaw.controller.SendMsg          : 当前时间：Fri Oct 14 00:24:00 CST 2022, 发送一条时长=40000的信息AAA到延迟队列
-2022-10-14 00:24:06.849  INFO 91060 --- [nio-8080-exec-5] com.waterlaw.controller.SendMsg          : 当前时间：Fri Oct 14 00:24:06 CST 2022, 发送一条时长=2000的信息BB到延迟队列
-2022-10-14 00:24:08.898  INFO 91060 --- [ntContainer#1-1] c.waterlaw.consumer.DelayLetterComsumer  : 当前时间：Fri Oct 14 00:24:08 CST 2022, 收到一条信息：BB
-2022-10-14 00:24:40.520  INFO 91060 --- [ntContainer#1-1] c.waterlaw.consumer.DelayLetterComsumer  : 当前时间：Fri Oct 14 00:24:40 CST 2022, 收到一条信息：AAA
+2022-10-14 00:24:00.479  INFO 91060 --- [nio-8080-exec-3] com.waterlaw.controller.SendMsg          : 
+当前时间：Fri Oct 14 00:24:00 CST 2022, 发送一条时长=40000的信息AAA到延迟队列
+2022-10-14 00:24:06.849  INFO 91060 --- [nio-8080-exec-5] com.waterlaw.controller.SendMsg          : 
+当前时间：Fri Oct 14 00:24:06 CST 2022, 发送一条时长=2000的信息BB到延迟队列
+2022-10-14 00:24:08.898  INFO 91060 --- [ntContainer#1-1] c.waterlaw.consumer.DelayLetterComsumer  : 
+当前时间：Fri Oct 14 00:24:08 CST 2022, 收到一条信息：BB
+2022-10-14 00:24:40.520  INFO 91060 --- [ntContainer#1-1] c.waterlaw.consumer.DelayLetterComsumer  : 
+当前时间：Fri Oct 14 00:24:40 CST 2022, 收到一条信息：AAA
 
 ```
 
@@ -1442,9 +1455,14 @@ SIMPLE： 经测试有两种效果，其一和CORRELATED一样，其二rabbitTem
 交换机名字改为 confirm.exchange123
 
 ```shell
-2022-10-15 20:35:52.242  INFO 2854 --- [nio-8080-exec-1] c.waterlaw.controller.ProductController  : 当前时间：Sat Oct 15 20:35:52 CST 2022, 发送一条信息qwqwq到confirm.queue队列
-2022-10-15 20:35:52.272 ERROR 2854 --- [ 127.0.0.1:5672] o.s.a.r.c.CachingConnectionFactory       : Shutdown Signal: channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - no exchange 'confirm.exchange123' in vhost '/', class-id=60, method-id=40)
-2022-10-15 20:35:52.278  INFO 2854 --- [nectionFactory2] com.waterlaw.config.MyCallBack           : 交换机未收到ID：1的消息，原因:channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - no exchange 'confirm.exchange123' in vhost '/', class-id=60, method-id=40)
+2022-10-15 20:35:52.242  INFO 2854 --- [nio-8080-exec-1] c.waterlaw.controller.ProductController  : 
+当前时间：Sat Oct 15 20:35:52 CST 2022, 发送一条信息qwqwq到confirm.queue队列
+2022-10-15 20:35:52.272 ERROR 2854 --- [ 127.0.0.1:5672] o.s.a.r.c.CachingConnectionFactory       : 
+Shutdown Signal: channel error; protocol method: 
+#method<channel.close>(reply-code=404, reply-text=NOT_FOUND - no exchange 'confirm.exchange123' in vhost '/', class-id=60, method-id=40)
+2022-10-15 20:35:52.278  INFO 2854 --- [nectionFactory2] com.waterlaw.config.MyCallBack           : 
+交换机未收到ID：1的消息，原因:channel error; protocol method: 
+#method<channel.close>(reply-code=404, reply-text=NOT_FOUND - no exchange 'confirm.exchange123' in vhost '/', class-id=60, method-id=40)
 
 ```
 
@@ -1578,7 +1596,8 @@ public class ConfirmConfig {
 
     // 绑定 交换机和队列
     @Bean
-    public Binding confirmQueueBindingRoutingKey(@Qualifier("confirmQueue") Queue confirmQueue, @Qualifier("confirmExchange") DirectExchange confirmExchange) {
+    public Binding confirmQueueBindingRoutingKey(@Qualifier("confirmQueue") Queue confirmQueue, 
+                                                 @Qualifier("confirmExchange") DirectExchange confirmExchange) {
         return BindingBuilder.bind(confirmQueue).to(confirmExchange).with(CONFIRM_ROUTE);
     }
 
@@ -1601,13 +1620,15 @@ public class ConfirmConfig {
 
     // 绑定 交换机和队列
     @Bean
-    public Binding backupQueueBindingRoutingKey(@Qualifier("backupQueue") Queue backupQueue, @Qualifier("backupExchange") FanoutExchange backupExchange) {
+    public Binding backupQueueBindingRoutingKey(@Qualifier("backupQueue") Queue backupQueue, 
+                                                @Qualifier("backupExchange") FanoutExchange backupExchange) {
         return BindingBuilder.bind(backupQueue).to(backupExchange);
     }
 
     // 绑定 交换机和队列
     @Bean
-    public Binding warningQueueBindingRoutingKey(@Qualifier("warningQueue") Queue warningQueue, @Qualifier("backupExchange") FanoutExchange backupExchange) {
+    public Binding warningQueueBindingRoutingKey(@Qualifier("warningQueue") Queue warningQueue, 
+                                                 @Qualifier("backupExchange") FanoutExchange backupExchange) {
         return BindingBuilder.bind(warningQueue).to(backupExchange);
     }
 }
